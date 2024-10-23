@@ -15,10 +15,10 @@ export const addFood = async (req, res) => {
 
   try {
     await food.save();
-    res.json({ success: true, message: "Food added" });
+    res.json({ success: true, message: "New food item succesfully added" });
   } catch (err) {
     console.log(err);
-    res.json({ success: false, message: "Food is not added" });
+    res.json({ success: false, message: "Food item is not added" });
   }
 };
 
@@ -30,7 +30,7 @@ export const listFood = async (req, res) => {
     res.json({ success: true, message: "All food items listed", data: foods });
   } catch (err) {
     console.log(err);
-    res.json({ success: false, message: "error in food items list" });
+    res.json({ success: false, message: "error in fetching food items list" });
   }
 };
 
@@ -46,9 +46,9 @@ export const removeFood = async (req, res) => {
     fs.unlink(`uploads/${food.image}`, () => {});
 
     await foodModel.findByIdAndDelete(id);
-    res.json({ success: true, message: "Food removed" });
+    res.json({ success: true, message: "Food item is succesfully removed" });
   } catch (err) {
     console.log(err);
-    res.json({ success: false, message: "Error in removing food" });
+    res.json({ success: false, message: "Error in removing food item" });
   }
 };
