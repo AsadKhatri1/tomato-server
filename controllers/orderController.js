@@ -52,4 +52,39 @@ const placeOrder = async (req, res) => {
   }
 };
 
-export { placeOrder };
+// user orders for frontend
+
+const userOrders = async (req, res) => {
+  try {
+    const orders = await orderModel.find({ userId: req.body.userId });
+    res.json({ success: true, message: "All ordres", data: orders });
+  } catch (err) {
+    res.json({ success: false, message: "Error in fetching orders" });
+  }
+};
+
+// all orders
+
+const allOrders = async (req, res) => {
+  try {
+    const orders = await orderModel.find({});
+    res.json({ success: true, message: "All orders", data: orders });
+  } catch (err) {
+    console.log(err);
+    res.json({ success: false, message: "Error in getting all orders" });
+  }
+};
+
+// updating status
+const updateStatus = async (req, res) => {
+  try {
+    await orderModel.findByIdAndUpdate(req.body.orderId, {
+      status: req.body.status,
+    });
+    res.json({ success: true, message: "Status updated" });
+  } catch (err) {
+    res.json({ success: false, message: "Error in updating order status" });
+  }
+};
+
+export { placeOrder, userOrders, allOrders, updateStatus };
